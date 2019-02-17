@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         samplePlayer.release();
         samplePlayer = null;
+        // test
     }
 
     public void playSamples(View v){
