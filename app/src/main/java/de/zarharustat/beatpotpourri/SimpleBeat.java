@@ -43,7 +43,15 @@ public class SimpleBeat extends Thread {
         super.run();
 
         for(int i = 0; i < lastSixteenthIndx; i++){
-            itsDrumkit.hitKick(1,1);
+            if(i % 4 == 0)
+                itsDrumkit.hitKick(0,0.7f);
+
+            if(i % 4 == 0)
+                itsDrumkit.hitSnare(0.6f,0);
+
+            if(i % 2 == 0)
+                itsDrumkit.hitHiHat(1,1);
+
             try {
                 sleep(lenthInMsOneSixeenth);
             }catch(InterruptedException ex){
