@@ -47,6 +47,7 @@ public class Drumkit {
     }
 
     public void hitHiHat(float left, float right){
+        System.out.println("spiele hihat");
         samplePlayer.play(sndIDHiHat, left, right, 0, 0, 1);
     }
     public void hitKick(float left, float right){

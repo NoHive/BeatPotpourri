@@ -82,23 +82,24 @@ public class MainActivity extends AppCompatActivity {
     public void playSamples(View v){
         switch(v.getId()){
             case R.id.btn_sound_hihat:
-                playTestSequence();
+                playTestSequence(v);
                 break;
         }
     }
 
-    public void playTestSequence() {
+    public void playTestSequence(final View v) {
         System.out.println("abspielen 1");
-        Runnable r = new Runnable(){
-            @Override
-            public void run() {
+
                 System.out.println("abspielen 1-1");
-                samplePlayer.play(sndIDSnare, 0, 1, 0, 0, 1);
-                samplePlayer.play(sndIDKick, 0.7F, 0.7F, 0, 0, 1);
-                samplePlayer.play(sndIDHiHat, 1, 0, 0, 0, 1);
-            }
-        };
-        new Thread(r, "player").start();
+
+                SimpleBeat sBeat =new SimpleBeat( new Drumkit(v.getContext()), 60, TimeSignature.FOUR_FOUR);
+                sBeat.start();
+
+//                samplePlayer.play(sndIDSnare, 0, 1, 0, 0, 1);
+//                samplePlayer.play(sndIDKick, 0.7F, 0.7F, 0, 0, 1);
+//                samplePlayer.play(sndIDHiHat, 1, 0, 0, 0, 1);
+
+
 
         System.out.println("abspielen 2");
     }
