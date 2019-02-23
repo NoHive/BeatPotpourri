@@ -3,6 +3,10 @@ package de.zarharustat.beatpotpourri;
 import android.content.Context;
 import android.media.SoundPool;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Vector;
+
 public class SimpleBeat extends Thread {
 
     private final Drumkit itsDrumkit;
@@ -11,13 +15,20 @@ public class SimpleBeat extends Thread {
     private long lenthInMsOneSixeenth =0;
     private TimeSignature itsTimeSignatur;
 
-    int fourth01, fourth02, fourth03, fourth04;
-    int eighth01, eighth02, eighth03, eighth04, eighth05, eighth06, eighth07, eighth08;
-    int sixteenth01, sixteenth02, sixteenth03, sixteenth04, sixteenth05, sixteenth06, sixteenth07, sixteenth08,
-            sixteenth09, sixteenth10, sixteenth11, sixteenth12, sixteenth13, sixteenth14, sixteenth15, sixteenth16;
-
     private int[] timeStampsForSixtennth;
     private int lastSixteenthIndx;
+    private HashMap<Integer, Vector<DrumHit>>  sixtennth = new HashMap<>();
+
+    public void addDrumhit(int onSixteenth, DrumHit hit){
+
+        Vector<DrumHit> drumhitsForSixteenth = sixtennth.get(new Integer(onSixteenth));
+        if(drumhitsForSixteenth == null){
+            drumhitsForSixteenth = new Vector<>();
+            sixtennth.put(new Integer(onSixteenth), drumhitsForSixteenth);
+        }
+        drumhitsForSixteenth.add(hit);
+
+    }
 
     public SimpleBeat(Drumkit kit, int bpm, TimeSignature ts){
         itsBpm = bpm;
@@ -42,23 +53,24 @@ public class SimpleBeat extends Thread {
     public void run() {
         super.run();
 
-        for(int i = 0; i < lastSixteenthIndx; i++){
-            if(i % 4 == 0)
-                itsDrumkit.hitKick(0,0.7f);
 
-            if(i % 4 == 0)
-                itsDrumkit.hitSnare(0.6f,0);
+            for (int i = 0; i < lastSixteenthIndx; i++) {
+                Vector<DrumHit> drumhitsForSixteenth = sixtennth.get(new Integer(i+1));
+                Iterator<DrumHit> hits = drumhitsForSixteenth.iterator();
+                while ( hits.hasNext()) {
+                    DrumHit hit = hits.next();
+                    hit.play();
+                }
 
-            if(i % 2 == 0)
-                itsDrumkit.hitHiHat(1,1);
-
-            try {
-                sleep(lenthInMsOneSixeenth);
-            }catch(InterruptedException ex){
-                if (Thread.currentThread().isInterrupted())
-                    return;
+                try {
+                    sleep(lenthInMsOneSixeenth);
+                } catch (InterruptedException ex) {
+                    if (Thread.currentThread().isInterrupted())
+                        interrupt();
+                }
             }
-        }
+
+        itsDrumkit.releasePlayer();
 
 
     }

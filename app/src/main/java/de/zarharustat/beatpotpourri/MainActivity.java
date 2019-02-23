@@ -91,8 +91,9 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("abspielen 1");
 
                 System.out.println("abspielen 1-1");
-
-                SimpleBeat sBeat =new SimpleBeat( new Drumkit(v.getContext()), 60, TimeSignature.FOUR_FOUR);
+                Drumkit drum = new Drumkit(v.getContext());
+                SimpleBeat sBeat =new SimpleBeat(drum, 60, TimeSignature.FOUR_FOUR);
+                sBeat.addDrumhit(1, new DrumHit(drum, drum.getHiHat(), Volume.bothFull()));
                 sBeat.start();
 
 //                samplePlayer.play(sndIDSnare, 0, 1, 0, 0, 1);

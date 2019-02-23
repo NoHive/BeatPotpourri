@@ -47,31 +47,83 @@ public class Drumkit {
     }
 
     public void hitHiHat(float left, float right){
-        System.out.println("spiele hihat");
+        System.out.println("hitHiHat");
         samplePlayer.play(sndIDHiHat, left, right, 0, 0, 1);
     }
     public void hitKick(float left, float right){
+        System.out.println("hitKick");
         samplePlayer.play(sndIDKick, left, right, 0, 0, 1);
     }
     public void hitSnare(float left, float right){
+        System.out.println("hitSnare");
         samplePlayer.play(sndIDSnare, left, right, 0, 0, 1);
     }
     public void hitTom01(float left, float right){
+        System.out.println("hitTom1");
         samplePlayer.play(sndIDTom01, left, right, 0, 0, 1);
     }
     public void hitTom02(float left, float right){
+        System.out.println("hitTom2");
         samplePlayer.play(sndIDTom02, left, right, 0, 0, 1);
     }
     public void hitTom03(float left, float right){
+        System.out.println("hitTom3");
         samplePlayer.play(sndIDTom03, left, right, 0, 0, 1);
     }
     public void hitTrash01(float left, float right){
+        System.out.println("hitTrash1");
         samplePlayer.play(sndIDTrash01, left, right, 0, 0, 1);
     }
     public void hitTrash02(float left, float right){
+        System.out.println("hitTrash2");
         samplePlayer.play(sndIDTrash02, left, right, 0, 0, 1);
     }
     public void hitTrash03(float left, float right){
+        System.out.println("hitTrash3");
         samplePlayer.play(sndIDTrash03, left, right, 0, 0, 1);
+    }
+    public int getHiHat(){
+        return sndIDHiHat;
+    }
+    public int getKick(){
+        return sndIDKick;
+    }
+    public int getSnare(){
+        return sndIDSnare;
+    }
+    public int getTom01(){
+        return sndIDTom01;
+    }
+    public int getTom02(){
+        return sndIDTom02;
+
+    }
+    public int hgetTom03(){
+        return sndIDTom03;
+
+    }
+    public int getTrash01(){
+        return sndIDTrash01;
+
+    }
+    public int getTrash02(){
+        return sndIDTrash02;
+
+    }
+    public int getTrash03(){
+        return sndIDTrash03;
+    }
+
+    public void playDrum(int drum, Volume vol){
+        if(!vol.off()){
+            samplePlayer.play(drum, vol.left(), vol.right(), 0, 0, 1);
+        }
+    }
+
+
+
+
+    public void releasePlayer() {
+        samplePlayer.release();
     }
 }
