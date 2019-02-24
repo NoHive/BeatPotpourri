@@ -59,7 +59,7 @@ public class SimpleBeat extends Thread {
         super.run();
 
 
-        for(int k=0; k < repeats; k++ ){
+        while(!isInterrupted()){
             for (int i = 0; i <= lastSixteenthIndx; i++) {
                 Vector<DrumHit> drumhitsForSixteenth = sixtennth.get(new Integer(i + 1));
                 if (drumhitsForSixteenth != null) {
@@ -73,7 +73,7 @@ public class SimpleBeat extends Thread {
                 try {
                     sleep(lenthInMsOneSixeenth);
                 } catch (InterruptedException ex) {
-                    if (Thread.currentThread().isInterrupted())
+
                         interrupt();
                 }
             }
