@@ -17,6 +17,7 @@ public class SimpleBeat extends Thread {
 
     private int[] timeStampsForSixtennth;
     private int lastSixteenthIndx;
+    private int repeats = 1;
     private HashMap<Integer, Vector<DrumHit>>  sixtennth = new HashMap<>();
 
     public void addDrumhit(int onSixteenth, DrumHit hit){
@@ -30,14 +31,18 @@ public class SimpleBeat extends Thread {
 
     }
 
+    public void setRepeats(int p_repeats){
+        repeats = p_repeats;
+    }
+
     public SimpleBeat(Drumkit kit, int bpm, TimeSignature ts){
         itsBpm = bpm;
         itsDrumkit = kit;
         itsTimeSignatur = ts;
 
-        lengthInMsOneBeat = Math.round(60/itsBpm * 1000);
+        lengthInMsOneBeat = (int) ((60.0 / itsBpm) * 1000);
 
-        lenthInMsOneSixeenth = lengthInMsOneBeat / ts.getNumberOfSixteenth();
+        lenthInMsOneSixeenth = lengthInMsOneBeat / 4;
        // int roundingDiff = lengthInMsOneBeat - (ts.getNumberOfSixteenth() * lenthInMsOneSixeenth);
         timeStampsForSixtennth = new int[ts.getNumberOfSixteenth()];
         timeStampsForSixtennth[0] = 0;
@@ -54,12 +59,15 @@ public class SimpleBeat extends Thread {
         super.run();
 
 
-            for (int i = 0; i < lastSixteenthIndx; i++) {
-                Vector<DrumHit> drumhitsForSixteenth = sixtennth.get(new Integer(i+1));
-                Iterator<DrumHit> hits = drumhitsForSixteenth.iterator();
-                while ( hits.hasNext()) {
-                    DrumHit hit = hits.next();
-                    hit.play();
+        for(int k=0; k < repeats; k++ ){
+            for (int i = 0; i <= lastSixteenthIndx; i++) {
+                Vector<DrumHit> drumhitsForSixteenth = sixtennth.get(new Integer(i + 1));
+                if (drumhitsForSixteenth != null) {
+                    Iterator<DrumHit> hits = drumhitsForSixteenth.iterator();
+                    while (hits.hasNext()) {
+                        DrumHit hit = hits.next();
+                        hit.play();
+                    }
                 }
 
                 try {
@@ -69,6 +77,7 @@ public class SimpleBeat extends Thread {
                         interrupt();
                 }
             }
+        }
 
         itsDrumkit.releasePlayer();
 

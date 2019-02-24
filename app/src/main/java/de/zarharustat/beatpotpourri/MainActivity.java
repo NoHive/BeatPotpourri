@@ -90,11 +90,25 @@ public class MainActivity extends AppCompatActivity {
     public void playTestSequence(final View v) {
         System.out.println("abspielen 1");
 
-                System.out.println("abspielen 1-1");
-                Drumkit drum = new Drumkit(v.getContext());
-                SimpleBeat sBeat =new SimpleBeat(drum, 60, TimeSignature.FOUR_FOUR);
-                sBeat.addDrumhit(1, new DrumHit(drum, drum.getHiHat(), Volume.bothFull()));
-                sBeat.start();
+        System.out.println("abspielen 1-1");
+        Drumkit drum = new Drumkit(v.getContext());
+        SimpleBeat sBeat =new SimpleBeat(drum, 120, TimeSignature.FOUR_FOUR);
+        sBeat.addDrumhit(1, new DrumHit(drum, drum.getHiHat(), Volume.bothFull()));
+        sBeat.addDrumhit(3, new DrumHit(drum, drum.getHiHat(), Volume.bothFull()));
+        sBeat.addDrumhit(5, new DrumHit(drum, drum.getHiHat(), Volume.bothFull()));
+        sBeat.addDrumhit(7, new DrumHit(drum, drum.getHiHat(), Volume.bothFull()));
+        sBeat.addDrumhit(9, new DrumHit(drum, drum.getHiHat(), Volume.bothFull()));
+        sBeat.addDrumhit(11, new DrumHit(drum, drum.getHiHat(), Volume.bothFull()));
+        sBeat.addDrumhit(13, new DrumHit(drum, drum.getHiHat(), Volume.bothFull()));
+        sBeat.addDrumhit(15, new DrumHit(drum, drum.getHiHat(), Volume.bothFull()));
+
+        sBeat.addDrumhit(1, new DrumHit(drum, drum.getKick(), Volume.bothFull()));
+        sBeat.addDrumhit(5, new DrumHit(drum, drum.getKick(), Volume.bothFull()));
+        sBeat.addDrumhit(9, new DrumHit(drum, drum.getKick(), Volume.bothFull()));
+
+        sBeat.addDrumhit(9, new DrumHit(drum, drum.getSnare(), Volume.bothFull()));
+        sBeat.setRepeats(10);
+        sBeat.start();
 
 //                samplePlayer.play(sndIDSnare, 0, 1, 0, 0, 1);
 //                samplePlayer.play(sndIDKick, 0.7F, 0.7F, 0, 0, 1);
